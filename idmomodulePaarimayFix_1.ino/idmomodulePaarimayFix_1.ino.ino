@@ -7,8 +7,8 @@
 #define Right_PWM 27 //J13
 #define Right_DIR 26
 
-#define Grip_PWM 25 //J12
-#define Grip_DIR 33
+#define Grip_PWM 32 //J12
+#define Grip_DIR 23
 
 //dir 26 pwm 16 MD 4
 //23 16 MD5
@@ -90,14 +90,14 @@ void set_Grip_Cmd(char grip) {
 
      case 'Y': // safety
       
-    //  Serial.println("Gripperzr Close");
+      Serial.println("Gripperzr Close");
       ledcWrite(channel[2], 255);
       digitalWrite(dir_pin[2], HIGH);
       break;
 
     case 'U': // safety
 
-      //Serial.println("Gripperr Open");
+      Serial.println("Gripperr Open");
       ledcWrite(channel[2], 255);
       digitalWrite(dir_pin[2], LOW);
       break;
@@ -126,7 +126,7 @@ void set_Grip_Cmd(char grip) {
 
 void setup() {
   Serial.begin(115200);
-  SerialPort.begin(115200, SERIAL_8N1, 1, 3) ;   // Use default serial for debug output
+  SerialPort.begin(115200, SERIAL_8N1, 3, -1) ;   // Use default serial for debug output
   delay(500);
 
   for (int k = 0; k < NMOTORS; k++)

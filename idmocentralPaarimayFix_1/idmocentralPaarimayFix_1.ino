@@ -13,8 +13,9 @@
 #define pwm_link1 17
 #define dir_link1 16//J1
 
-#define dir_link2 19 //J2
-#define pwm_link2 18
+#define pwm_link2 19//J2
+#define dir_link2 18
+
 
 //Drive
 //#define Rdir 19//j11
@@ -135,8 +136,6 @@ void gripper(int grip)
      Sender.write('Q');
         //   Serial.println("7");
      break;
-    
-    {}
   }
 }
 
@@ -145,7 +144,7 @@ void setup()
   Wire.begin();
   //setBNO0553();
   Serial.begin(115200);
-  Sender.begin(115200, SERIAL_8N1, 3, 1) ;   // Use default serial for debug output
+  Sender.begin(115200, SERIAL_8N1, -1, 1) ;   // Use default serial for debug output
   //GPSPort.begin(115200, SERIAL_8N1, 25, 26);
   SerialPort.begin(115200, SERIAL_8N1, 21, -1);//(baud rate,protocol,Tx,Rx)
   // Limit Switch INPUT Pins
@@ -187,7 +186,7 @@ void loop()
       if (bufferIndex >= BUFFER_SIZE) 
         bufferIndex = 0;
     }
-    //Serial.println(rxBuffer);
+     //Serial.println(rxBuffer);
 
     // Find the positions of the "M", "X", "Y", "P", "Q", "A", "S", "R", "D" and "E" characters in the buffer
     char *M_index = strchr(rxBuffer, 'M'); // gear
@@ -283,7 +282,7 @@ void loop()
   }
   else
   {
-    Serial.println("nope");
+    //Serial.println("nope");
     drive.Stop();
   }
   bufferIndex = 0;
